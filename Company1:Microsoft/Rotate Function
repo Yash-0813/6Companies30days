@@ -1,0 +1,38 @@
+-----------------------------------------------------SOLUTION OF O(n**2) Brute Force ----------------------------------------------------------------------------------
+class Solution {
+    public int maxRotateFunction(int[] nums) {
+        int n = nums.length;
+        int maxval = Integer.MIN_VALUE;
+        int j=0;
+        for(int i=0;i<nums.length;i++){
+            int sum = 0;
+            int k=i;
+            for(j=0;j<nums.length;j++){
+                sum += nums[k%n]*j;
+                k++;
+            }
+            maxval = Math.max(maxval,sum);
+        }
+        return maxval;
+    }
+}
+
+
+-------------------------------------------------SOLUTION OF O(n)--------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int maxRotateFunction(int[] nums) {
+        int sum =0, firstsum= 0, len = nums.length;
+        //firstsum variable for summation from starting befpre rotation
+        for(int i=0; i<len; i++){
+            sum+=nums[i];
+            firstsum+=(nums[i]*i);
+        }
+        int max =firstsum;
+        for(int j=1; j<len; j++){
+            firstsum= firstsum- sum + nums[j-1]*len;// f[1]=f[0]-sum+nums[0]*nums.length
+            max = Math.max(max,firstsum);
+        }
+        return max;
+    }
+}
