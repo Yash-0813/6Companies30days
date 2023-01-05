@@ -1,0 +1,29 @@
+class Solution {
+    public int minOperations(int[] nums, int[] numsDivide) {
+        int hcf=findgcd(numsDivide);//finding gcd as the highest gcd will divide all the elements from numdivide and if hcf is divided by nums[i] that we want
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+            if(hcf%nums[i]==0){
+                return i; // returning ondex bcoz it will be the first element  which divide all element of numsdivide so .
+            }
+        }
+        return -1;
+    }
+    public static int gcd(int a,int b){
+        if(a==0){
+            return b;
+        }
+        return gcd(b%a,a);
+    }
+    public static int findgcd(int[] numsDivide){
+        int result=numsDivide[0];
+        for(int element:numsDivide){
+            result=gcd(result,element);
+
+            if(result==1){ // if got result 1 means gcd value is 1 so now every value would be divided of it 
+                return 1;
+            }
+        }
+        return result;
+    }
+}
